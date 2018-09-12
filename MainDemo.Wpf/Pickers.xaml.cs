@@ -1,7 +1,8 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Controls;
+using MaterialDesignThemes.Wpf;
 
 namespace MaterialDesignColors.WpfExample
 {
@@ -21,12 +22,14 @@ namespace MaterialDesignColors.WpfExample
 
         private void LocaleCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try {
-                var lang = System.Windows.Markup.XmlLanguage.GetLanguage((string) LocaleCombo.SelectedItem);
+            try
+            {
+                var lang = System.Windows.Markup.XmlLanguage.GetLanguage((string)LocaleCombo.SelectedItem);
                 LocaleDatePicker.Language = lang;
                 LocaleDatePickerRTL.Language = lang;
             }
-            catch {
+            catch
+            {
                 LocaleCombo.SelectedItem = "fr-CA";
             }
             //HACK: The calendar only refresh when we change the date
@@ -66,13 +69,20 @@ namespace MaterialDesignColors.WpfExample
 
         public void ClockDialogOpenedEventHandler(object sender, DialogOpenedEventArgs eventArgs)
         {
-            Clock.Time = ((PickersViewModel) DataContext).Time;
+            Clock.Time = ((PickersViewModel)DataContext).Time;
         }
 
         public void ClockDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
             if (Equals(eventArgs.Parameter, "1"))
                 ((PickersViewModel)DataContext).Time = Clock.Time;
+        }
+
+        private void TimePicker_SelectedTimeChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<System.DateTime?> e)
+        {
+            var oldTime = e.OldValue.HasValue ? e.OldValue.Value.ToLongTimeString() : "NULL";
+            var newTime = e.OldValue.HasValue ? e.NewValue.Value.ToLongTimeString() : "NULL";
+            Debug.WriteLine($"TimePicker's selected time changed from {oldTime} to {newTime}");
         }
     }
 }

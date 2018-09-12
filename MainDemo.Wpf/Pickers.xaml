@@ -60,16 +60,19 @@
             <smtx:XamlDisplay Key="pickers_6" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0 16 0 0" VerticalAlignment="Top">
                 <materialDesign:TimePicker Width="100" 
                                            Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                           SelectedTimeChanged="TimePicker_SelectedTimeChanged"
                                            materialDesign:HintAssist.Hint="Custom hint" />
             </smtx:XamlDisplay>
             <smtx:XamlDisplay Key="pickers_7" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 16 0 0">
-                <materialDesign:TimePicker Is24Hours="True" x:Name="PresetTimePicker" Width="100" />
+                    <materialDesign:TimePicker Is24Hours="True" x:Name="PresetTimePicker" Width="100"
+                                               SelectedTimeChanged="TimePicker_SelectedTimeChanged" />
             </smtx:XamlDisplay>
             <smtx:XamlDisplay Key="pickers_8" Grid.Row="1" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 16 0 0">
                 <materialDesign:TimePicker 
                                    materialDesign:HintAssist.Hint="Validates"
                                    IsInvalidTextAllowed="True"
-                                   Is24Hours="True" Width="100">
+                                   Is24Hours="True" Width="100"
+                                   SelectedTimeChanged="TimePicker_SelectedTimeChanged">
                     <materialDesign:TimePicker.Text>
                         <Binding Path="ValidatingTime" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
